@@ -6,7 +6,8 @@ const { execFile } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "8572346434:AAGsFAfy9L1GPwSdrxBRHlgktmF4bydBW1A";
+// ပြောင်းလဲထားသော Telegram Bot Token အသစ်နှင့် Gemini API Key
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "8572346434:AAHQ67LsE3JGJ4qstNQdJzVWy-90YaNT7iU";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "AQ.Ab8RN6LKHvo_qm8-i50dnq7vjbVkgrVxnleBU6Dhg-AgD23PqA";
 
 const bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: true });
@@ -78,7 +79,6 @@ function runFfmpeg(args) {
 
 async function mergeVideoAndAudio(videoPath, audioPath, outputPath) {
   try {
-    // မူရင်းဗီဒီယိုမှ နောက်ခံအသံကို 20% လျှော့ချပြီး မြန်မာ Recap အသံကို အပေါ်မှ ထပ်ပေါင်းမည်
     await runFfmpeg([
       "-y",
       "-i", videoPath,
@@ -91,7 +91,6 @@ async function mergeVideoAndAudio(videoPath, audioPath, outputPath) {
       outputPath
     ]);
   } catch (err) {
-    // မူရင်းဗီဒီယိုတွင် အသံလုံးဝမပါပါက မြန်မာ Recap အသံကို တိုက်ရိုက်ထည့်ပေးမည်
     await runFfmpeg([
       "-y",
       "-i", videoPath,
@@ -165,13 +164,13 @@ bot.onText(/\/(start|help)/, (msg) => {
   const welcomeText = 
     "👋 မင်္ဂလာပါ! TikTok Viral, Google Flow & Auto Burmese Dubbing AI Bot မှ ကြိုဆိုပါတယ်။\n\n" +
     "📌 အသုံးပြုပုံများ -\n\n" +
-    "1️⃣ 🎥 **ဗီဒီယိုထဲသို့ မြန်မာ Recap အသံ တန်းထည့်ရန်:**\n" +
-    "Google Flow မှာ ပေါင်းပြီးသား Video ဖိုင်ကို ဒီ Chat ထဲသို့ တိုက်ရိုက်ပို့ပေးလိုက်ပါ။ Bot က ဗီဒီယိုကိုကြည့်ပြီး **မြန်မာ Recap အသံသွင်းပြီးသား Video** ကို ပြန်ပို့ပေးပါမယ်!\n\n" +
-    "2️⃣ 🎬 **Flow Prompt + မြန်မာ Recap အသံထုတ်ရန်:**\n" +
+    "1️⃣ 🎥 *ဗီဒီယိုထဲသို့ မြန်မာ Recap အသံ တန်းထည့်ရန်:*\n" +
+    "Google Flow မှာ ပေါင်းပြီးသား Video ဖိုင်ကို ဒီ Chat ထဲသို့ တိုက်ရိုက်ပို့ပေးလိုက်ပါ။ Bot က ဗီဒီယိုကိုကြည့်ပြီး *မြန်မာ Recap အသံသွင်းပြီးသား Video* ကို ပြန်ပို့ပေးပါမယ်!\n\n" +
+    "2️⃣ 🎬 *Flow Prompt + မြန်မာ Recap အသံထုတ်ရန်:*\n" +
     "`မိုးရွာထဲမှာ ကော်ဖီသောက်နေတဲ့ ကြောင်လေး`\n\n" +
-    "3️⃣ 🔍 **Trend ရှာရန်:**\n" +
+    "3️⃣ 🔍 *Trend ရှာရန်:*\n" +
     "`/trend AI ဇာတ်လမ်းတို`\n\n" +
-    "4️⃣ 🗣️ **မြန်မာအသံ ပြောင်းရန်:**\n" +
+    "4️⃣ 🗣️ *မြန်မာအသံ ပြောင်းရန်:*\n" +
     "`/female` - မိန်းကလေးအသံ (Nilar)\n" +
     "`/male` - ယောက်ျားလေးအသံ (Thiha)\n" +
     "`/voice မင်္ဂလာပါ` - စာသားမှ မြန်မာအသံ MP3 သီးသန့်ထုတ်ရန်";
@@ -179,19 +178,16 @@ bot.onText(/\/(start|help)/, (msg) => {
   bot.sendMessage(msg.chat.id, welcomeText, { parse_mode: "Markdown" });
 });
 
-// မိန်းကလေးအသံ ပြောင်းရန်
 bot.onText(/\/female/, (msg) => {
   currentVoice = "my-MM-NilarNeural";
-  bot.sendMessage(msg.chat.id, "✅ မြန်မာ Recap အသံကို **မိန်းကလေးအသံ (Nilar)** သို့ ပြောင်းလဲလိုက်ပါပြီ။", { parse_mode: "Markdown" });
+  bot.sendMessage(msg.chat.id, "✅ မြန်မာ Recap အသံကို *မိန်းကလေးအသံ (Nilar)* သို့ ပြောင်းလဲလိုက်ပါပြီ။", { parse_mode: "Markdown" });
 });
 
-// ယောက်ျားလေးအသံ ပြောင်းရန်
 bot.onText(/\/male/, (msg) => {
   currentVoice = "my-MM-ThihaNeural";
-  bot.sendMessage(msg.chat.id, "✅ မြန်မာ Recap အသံကို **ယောက်ျားလေးအသံ (Thiha)** သို့ ပြောင်းလဲလိုက်ပါပြီ။", { parse_mode: "Markdown" });
+  bot.sendMessage(msg.chat.id, "✅ မြန်မာ Recap အသံကို *ယောက်ျားလေးအသံ (Thiha)* သို့ ပြောင်းလဲလိုက်ပါပြီ။", { parse_mode: "Markdown" });
 });
 
-// /voice command ဖြင့် စာသားမှ မြန်မာ MP3 အသံဖိုင် တိုက်ရိုက်ထုတ်ရန်
 bot.onText(/\/voice(.*)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const text = match[1] ? match[1].trim() : "";
@@ -216,7 +212,6 @@ bot.onText(/\/voice(.*)/, async (msg, match) => {
   }
 });
 
-// /trend command
 bot.onText(/\/trend(.*)/, async (msg, match) => {
   const chatId = msg.chat.id;
   let topic = match[1] ? match[1].trim() : "";
@@ -245,7 +240,6 @@ bot.onText(/\/trend(.*)/, async (msg, match) => {
   }
 });
 
-// ဗီဒီယိုဖိုင် ပို့လာသည့်အခါ မြန်မာ Recap စာသား + အသံသွင်းပြီးသား Video ပြန်ပို့ပေးရန်
 bot.on('video', async (msg) => {
   const chatId = msg.chat.id;
   const waitMsg = await bot.sendMessage(chatId, "🎥 1/3 - သင့်ဗီဒီယိုကို ကြည့်ရှုပြီး မြန်မာ Recap Script ရေးသားနေပါတယ်...");
@@ -280,7 +274,6 @@ bot.on('video', async (msg) => {
       }
     ]);
 
-    // <voiceover>...</voiceover> ထဲမှ မြန်မာစကားပြောသီးသန့်ကို ဆွဲထုတ်ခြင်း
     const voMatch = rawReply.match(/<voiceover>([\s\S]*?)<\/voiceover>/i);
     const cleanReply = rawReply.replace(/<voiceover>[\s\S]*?<\/voiceover>/gi, "").trim();
     const narrationText = voMatch ? voMatch[1].trim() : cleanReply;
@@ -298,17 +291,14 @@ bot.on('video', async (msg) => {
       message_id: waitMsg.message_id
     });
 
-    // ၁။ အသံသွင်းပြီးသား Video ပို့ပေးခြင်း
     await bot.sendVideo(chatId, outputVideoPath, {
       caption: "✅ မြန်မာ Recap အသံသွင်းပြီးသား ဗီဒီယို ရပါပြီ!"
     });
 
-    // ၂။ သီးသန့် MP3 အသံဖိုင် ပို့ပေးခြင်း
     await bot.sendAudio(chatId, audioPath, {
       caption: "🎙️ သီးသန့် မြန်မာ Voiceover MP3 (CapCut တွင် လိုသလို ပြန်ချိန်ရန်)"
     });
 
-    // ၃။ Recap စာသားနှင့် TikTok Caption ပို့ပေးခြင်း
     await editWithOneClickCopy(chatId, waitMsg.message_id, cleanReply);
 
   } catch (error) {
@@ -323,7 +313,6 @@ bot.on('video', async (msg) => {
   }
 });
 
-// ရိုးရိုးစာပို့သည့်အခါ Google Flow Prompt + မြန်မာ Recap စာသားနှင့် MP3 အသံဖိုင်ပါ ထုတ်ပေးရန်
 bot.on('message', async (msg) => {
   if (!msg.text || msg.text.startsWith('/')) return;
 
@@ -356,4 +345,4 @@ bot.on('message', async (msg) => {
   }
 });
 
-console.log("✅ Node.js Bot (with Auto Burmese Video Dubbing) စတင် အလုပ်လုပ်နေပါပြီ!");
+console.log("✅ Node.js Bot (with New Token & Auto Burmese Dubbing) စတင် အလုပ်လုပ်နေပါပြီ!");
