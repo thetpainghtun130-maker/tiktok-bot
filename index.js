@@ -6,8 +6,8 @@ const { execFile } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// Token နှင့် API Key များကို တိုက်ရိုက် အသေထည့်သွင်းထားပါသည်
-const TELEGRAM_BOT_TOKEN = "8572346434:AAHQ67LsE3JGJ4qstNQdJzVWy-90YaNT7iU";
+// သင်ပေးထားသော Bot Token အသစ်နှင့် Gemini API Key ကို အသေထည့်သွင်းထားပါသည်
+const TELEGRAM_BOT_TOKEN = "8952000947:AAGCcc6h0QWDhDQxl-T80SlQHTRPMbLefs4";
 const GEMINI_API_KEY = "AQ.Ab8RN6LKHvo_qm8-i50dnq7vjbVkgrVxnleBU6Dhg-AgD23PqA";
 
 const bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: true });
@@ -345,4 +345,4 @@ bot.on('message', async (msg) => {
   }
 });
 
-console.log("✅ Node.js Bot (with Fixed Token) စတင် အလုပ်လုပ်နေပါပြီ!");
+console.log("✅ Node.js Bot (with BRAND NEW Token) စတင် အလုပ်လုပ်နေပါပြီ!");
