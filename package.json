@@ -1,14 +1,14 @@
 {
-  "name": "tiktok-flow-bot",
+  "name": "tiktok-bot",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "@google/genai": "^2.27.0",
-    "ffmpeg-static": "^5.2.0",
-    "node-edge-tts": "^1.2.10",
-    "node-telegram-bot-api": "^0.66.0"
+    "@google/genai": "latest",
+    "ffmpeg-static": "latest",
+    "node-edge-tts": "latest",
+    "node-telegram-bot-api": "latest"
   }
 }
